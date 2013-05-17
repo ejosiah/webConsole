@@ -8,6 +8,10 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
+	<properties>
+		<spring-versoin>3.2.2.RELEASE</spring-versoin>
+	</properties>
+
 	<name>web console parent</name>
 	<modules>
 		<module>appender</module>
@@ -40,6 +44,11 @@
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
 				<version>4.11</version>
+			</dependency>
+			<dependency>
+				<groupId>com.google.code.guice</groupId>
+				<artifactId>guice</artifactId>
+				<version>1.0</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
