@@ -16,13 +16,6 @@ public class DBMapProvider implements Provider<ConcurrentNavigableMap<String, Li
 		if(dbMap == null){
 			dbMap =  DBHolder.db().getTreeMap(Constants.MAP_NAME);
 		}
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println("provider called for DBMap");
-		System.out.println();
-		System.out.println();
-		System.out.println();
 		return dbMap;
 	}
 	

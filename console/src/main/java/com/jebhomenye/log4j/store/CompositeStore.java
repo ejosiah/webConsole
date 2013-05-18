@@ -37,8 +37,8 @@ public class CompositeStore implements DataStore {
 		List<String> result = null;
 		try {
 			result = cache.get(key);
-		} catch (ExecutionException e) {
-			throw new RuntimeException(e);
+		} catch (Exception e) {
+			 // Ignore 
 		}
 		return result != null ? result : EMPTY_LIST;
 	}

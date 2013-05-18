@@ -11,28 +11,30 @@ import java.net.URL;
 public class WebConsoleWriter extends Writer {
 	
 	private static final int TIME_OUT = 1000;
-	
-	private DataOutputStream out;
-	private HttpURLConnection httpConnection;
+
 	
 	public WebConsoleWriter(){
-		initialise();
-	}
-	
-	private void initialise(){
-		try {
-			httpConnection = openConnection();
-			out = new DataOutputStream(httpConnection.getOutputStream());
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-		
 	}
 
 	@Override
 	public void write(char[] cbuf, int off, int len) throws IOException {
-		for(int i = 0; i < cbuf.length; i++){
-			out.writeChar(cbuf[i]);
+		HttpURLConnection httpConnection = openConnection();
+		DataOutputStream out = new DataOutputStream(httpConnection.getOutputStream());
+		
+		try{
+			out.writeUTF(Constants.APP_NAME);
+			for(int i = 0; i < cbuf.length; i++){
+				out.writeChar(cbuf[i]);
+			}
+			out.flush();
+			httpConnection.getInputStream();
+		}finally{
+			if(out != null){
+				out.close();
+			}
+			if(httpConnection != null){
+				httpConnection.disconnect();
+			}
 		}
 
 	}
@@ -50,19 +52,12 @@ public class WebConsoleWriter extends Writer {
 
 	@Override
 	public void flush() throws IOException {
-		out.flush();
-		httpConnection.getInputStream();
+
 		
 	}
 
 	@Override
 	public void close() throws IOException {
-		if(out != null){
-			out.close();
-		}
-		if(httpConnection != null){
-			httpConnection.disconnect();
-		}
 		
 	}
 
