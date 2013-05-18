@@ -5,6 +5,7 @@ import static org.mockito.Mockito.*;
 import static com.jebhomenye.log4j.util.Util.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ConcurrentNavigableMap;
@@ -62,6 +63,17 @@ public class CompositeStoreUTest {
 		List<String> result = dataStore.get(key);
 		
 		assertEquals(logs, result);
+	}
+	
+	@Test
+	public void testNoData() throws Exception{
+		ArrayList<String> emptyList = new ArrayList<String>();
+		String key = key(APP_NAME, floor(NOW));
+		when(mockCache.get(key)).thenReturn(null);
+		
+		List<String> result = dataStore.get(key);
+		
+		assertEquals(emptyList, result);
 	}
 	
 	private List<String> buildLogs(){
