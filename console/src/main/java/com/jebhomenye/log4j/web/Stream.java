@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.codehaus.jackson.map.ObjectMapper;
-import org.mockito.internal.util.ObjectMethodsGuru;
 
 import com.jebhomenye.log4j.service.ApplicationRegistry;
 

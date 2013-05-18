@@ -7,7 +7,9 @@ import java.util.concurrent.ConcurrentNavigableMap;
 import java.util.concurrent.ExecutionException;
 import com.google.common.cache.LoadingCache;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
+@Singleton
 public class CompositeStore implements DataStore {
 	
 	private static final List<String> EMPTY_LIST = Collections.emptyList();

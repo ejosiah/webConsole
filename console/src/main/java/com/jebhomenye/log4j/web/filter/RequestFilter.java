@@ -2,8 +2,11 @@ package com.jebhomenye.log4j.web.filter;
 
 import static com.jebhomenye.log4j.util.Util.*;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -16,7 +19,8 @@ public class RequestFilter extends AbstractFilter{
 	@SuppressWarnings("unchecked")
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain filterChain) throws IOException, ServletException {
-		HttpServletRequest req = (HttpServletRequest)request;
+		
+		RequestWrapper req = new RequestWrapper((HttpServletRequest)request);
 		
 		String url = req.getRequestURI();
 		String pattern = "/stream/";
@@ -32,18 +36,18 @@ public class RequestFilter extends AbstractFilter{
 			String[] params = query.split("/");
 			
 			
-			Map paramMap = req.getParameterMap();
 			String time = params.length < 2 ?  
 					floor(new Date().getTime()) + "" : floor(new Long(params[1])) + "";
 			String appName = params[0];
 			
-			paramMap.put("appName", appName);
-			paramMap.put("time", time);
+			req.setParam("appName", appName);
+			req.setParam("time", time);
 			
-			filterChain.doFilter(request, response);
+			
+			filterChain.doFilter(req, response);
 		}
 		
+		
 	}
-
 
 }

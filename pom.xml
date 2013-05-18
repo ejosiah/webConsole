@@ -65,6 +65,11 @@
 				<artifactId>jackson-mapper-asl</artifactId>
 				<version>1.9.12</version>
 			</dependency>
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>0.11.8</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 </project>

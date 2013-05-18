@@ -18,10 +18,23 @@
   	<servlet-name>logger</servlet-name>
   	<servlet-class>com.jebhomenye.log4j.web.Logger</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>stream</servlet-name>
+  	<servlet-class>com.jebhomenye.log4j.web.Stream</servlet-class>
+  </servlet>
   <servlet-mapping>
    <servlet-name>logger</servlet-name>
    <url-pattern>/logger.do</url-pattern>
   </servlet-mapping>
+  
+  <servlet-mapping>
+   <servlet-name>stream</servlet-name>
+   <url-pattern>/stream/*</url-pattern>
+  </servlet-mapping>
+  
+  <listener>
+  	<listener-class>com.jebhomenye.log4j.web.ContextInitializer</listener-class>
+  </listener>
   
   <welcome-file-list>
    <welcome-file>index.html</welcome-file>
