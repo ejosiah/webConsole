@@ -31,8 +31,9 @@ public class WebConsoleWriter extends Writer {
 
 	@Override
 	public void write(char[] cbuf, int off, int len) throws IOException {
-		byte[] data = copy(cbuf, off, len);
-		out.write(data);
+		for(int i = 0; i < cbuf.length; i++){
+			out.writeChar(cbuf[i]);
+		}
 
 	}
 	
@@ -45,14 +46,6 @@ public class WebConsoleWriter extends Writer {
 		connection.setReadTimeout(TIME_OUT);
 		
 		return connection;
-	}
-	
-	private byte[] copy(char[] cData, int off, int len){
-		byte[] data = new byte[len];
-		for(int i = 0; i < len; i++){
-			data[i] = (byte) cData[off+i];
-		}
-		return data;
 	}
 
 	@Override
