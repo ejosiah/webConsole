@@ -16,10 +16,18 @@ public class App
 	
     public static void main( String[] args ) throws Exception
     {
-        File file = new File("C:\\Users\\jay\\workspace\\sample data\\50000.csv");
+        File file = new File("C:\\Users\\jay\\workspace\\sample data\\5000.csv");
         Scanner scanner = new Scanner(file);
         while(scanner.hasNextLine()){
+        	Thread.sleep(10);
         	logger.info(scanner.nextLine());
+        }
+        
+        try{
+        	Object[] array = new Object[0];
+        	array[1] = 0;
+        }catch(Exception e){
+        	logger.error("Error accessing object", e);
         }
     }
 }

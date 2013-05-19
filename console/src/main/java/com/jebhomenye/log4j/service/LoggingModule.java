@@ -16,8 +16,8 @@ public class LoggingModule extends AbstractModule{
 
 	@Override
 	protected void configure() {
-		TypeLiteral<ConcurrentNavigableMap<String, List<String>>> concurrentNavigableMap = new TypeLiteral<ConcurrentNavigableMap<String,List<String>>>() {};
-		TypeLiteral<LoadingCache<String, List<String>>> loadingCache = new TypeLiteral<LoadingCache<String,List<String>>>() {};
+		TypeLiteral<ConcurrentNavigableMap<Long, String>> concurrentNavigableMap = new TypeLiteral<ConcurrentNavigableMap<Long,String>>() {};
+		TypeLiteral<LoadingCache<Long, String>> loadingCache = new TypeLiteral<LoadingCache<Long,String>>() {};
 		bind(concurrentNavigableMap).toProvider(DBMapProvider.class);
 		bind(loadingCache).toProvider(CacheProvider.class);
 		bind(DataStore.class).to(CompositeStore.class);

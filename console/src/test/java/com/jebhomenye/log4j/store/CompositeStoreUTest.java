@@ -25,13 +25,12 @@ public class CompositeStoreUTest {
 	
 	private static final long NOW = 1368829433730L;
 	private static final String EVENT = "I just logged the time which was %s";
-	private static final String APP_NAME = "someApp";
 	
 	@Mock
-	private LoadingCache<String, List<String>> mockCache;
+	private LoadingCache<Long, String> mockCache;
 	
 	@Mock
-	private ConcurrentNavigableMap<String, List<String>> mockDisMap;
+	private ConcurrentNavigableMap<Long, String> mockDisMap;
 	
 	@InjectMocks
 	private CompositeStore dataStore;
@@ -42,47 +41,35 @@ public class CompositeStoreUTest {
 
 	@Test
 	public void testStore() {
-		String key = key(APP_NAME, floor(NOW));
+		Long key = NOW;
 		String event = String.format(EVENT, NOW);
-		List<String> events = new ArrayList<String>();
 		
 		dataStore.store(key, event);
 		
-		events.add(event);
 		
-		verify(mockCache).put(key, events);
-		verify(mockDisMap).put(key, events);
+		verify(mockCache).put(key, event);
+		verify(mockDisMap).put(key, event);
 	}
 	
 	@Test
 	public void testGet() throws Exception{
-		List<String> logs = buildLogs();
-		String key = key(APP_NAME, floor(NOW));
-		when(mockCache.get(key)).thenReturn(logs );
+		String log = String.format(EVENT, NOW);
+		long key = NOW;
+		when(mockCache.get(key)).thenReturn(log);
 		
-		List<String> result = dataStore.get(key);
+		String result = dataStore.get(key);
 		
-		assertEquals(logs, result);
+		assertEquals(log, result);
 	}
 	
 	@Test
 	public void testNoData() throws Exception{
-		ArrayList<String> emptyList = new ArrayList<String>();
-		String key = key(APP_NAME, floor(NOW));
+		Long key = NOW;
 		when(mockCache.get(key)).thenReturn(null);
 		
-		List<String> result = dataStore.get(key);
+		String result = dataStore.get(key);
 		
-		assertEquals(emptyList, result);
-	}
-	
-	private List<String> buildLogs(){
-		List<String> logs = new ArrayList<String>();
-		for(int i = 0; i < 10; i++){
-			logs.add(String.format(EVENT, NOW+i));
-		}
-		
-		return logs;
+		assertNull(result);
 	}
 
 }

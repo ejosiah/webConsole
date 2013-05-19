@@ -15,11 +15,10 @@ public class Logger extends HttpServlet {
 			throws ServletException, IOException {
 		DataInputStream in = new DataInputStream(request.getInputStream());
 		
-		String appName = in.readUTF();
 		String event = eventLog(in);
 		long time = System.currentTimeMillis();
 		
-		ApplicationRegistry.get().loggerService().log(appName, event, time);
+		ApplicationRegistry.get().loggerService().log(time, event);
 
 	}
 	

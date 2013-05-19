@@ -1,17 +1,21 @@
 package com.jebhomenye.log4j.appender;
 
-import static com.jebhomenye.log4j.appender.Constants.*;
-
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter @AllArgsConstructor
 public class WebConsoleWriter extends Writer {
 	
 	private static final int TIME_OUT = 1000;
-
+	
+	private String url;
 	
 	public WebConsoleWriter(){
 	}
@@ -22,7 +26,6 @@ public class WebConsoleWriter extends Writer {
 		DataOutputStream out = new DataOutputStream(httpConnection.getOutputStream());
 		
 		try{
-			out.writeUTF(Constants.APP_NAME);
 			for(int i = 0; i < cbuf.length; i++){
 				out.writeChar(cbuf[i]);
 			}
@@ -40,7 +43,7 @@ public class WebConsoleWriter extends Writer {
 	}
 	
 	private HttpURLConnection openConnection() throws IOException{
-		URL url = new URL(LOG_URL);
+		URL url = new URL(this.url + "/logger.do");
 		HttpURLConnection connection = (HttpURLConnection)url.openConnection();
 		connection.setDoOutput(true);
 		connection.setRequestMethod("POST");

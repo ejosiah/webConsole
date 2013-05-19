@@ -20,12 +20,11 @@ public class Stream  extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String appName = request.getParameter("appName");
 		long time = new Long(request.getParameter("time"));
 		
-		List<String> logs = ApplicationRegistry.get().loggerService().readLog(appName, time);
-		Map<String, List<String>> model = new HashMap<String, List<String>>();
-		model.put("logs", logs);
+		String log = ApplicationRegistry.get().loggerService().readLog(time);
+		Map<String, String> model = new HashMap<String, String>();
+		model.put("log", log);
 		
 		response.setContentType("text/json");
 		OutputStream out = response.getOutputStream();

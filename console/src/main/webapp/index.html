@@ -5,39 +5,45 @@
 	<style type="text/css">
 		body{
 			font-family: Arial, Helvetica, sans-serif;
-			font-size: x-small
-		}
-		#tool{
-			height : 2%
-		}
-		#console{
-			height : 98%;
+			font-size: small;
 			background-color: black;
 			color : green
+		}
+		#tool{
+			height : 3%;
+			color : black;
+			background-color : white;
+			margin: 0;
+			padding: 0;
+		}
+		#console{
+			height : 97%;
 		}
 	</style>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" ></script>
 	<script type="text/javascript">
 		function log(){
-			var url = "http://localhost:8080/console/stream/example"
+			var url = "http://localhost:8080/console/stream"
 			$.ajax({
 				url : url,
 				dataType : 'json',
 				async : false,
 				success: function(resp){
-					var console = document.getElementById("console")
-				
-					resp.logs.forEach(function(it){
+					if(resp != ""){
+					
+						var cons = document.getElementById("console")
+						
 						var line = document.createElement("div")
-						var text = document.createTextNode(it)
+						var text = document.createTextNode(resp.log)
 						line.appendChild(text)
-						console.appendChild(line)
-					})
+						cons.appendChild(line)
+					}
+
 				}
 			})
 		}
 		window.onload = function(){
-			setInterval(log, 1000);
+			setInterval(log, 10);
 		}
 	</script>
 	<body>
