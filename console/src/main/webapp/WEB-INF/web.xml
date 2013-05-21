@@ -1,40 +1,9 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
-
-<web-app>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+  version="3.0">
   <display-name>log4j web console appender</display-name>
-  
-  <filter>
-  	<filter-name>requestFilter</filter-name>
-  	<filter-class>com.jebhomenye.log4j.web.filter.RequestFilter</filter-class>
-  </filter>
-  <filter-mapping>
-  	<filter-name>requestFilter</filter-name>
-  	<url-pattern>/stream/*</url-pattern>
-  </filter-mapping>
-  
-  <servlet>
-  	<servlet-name>logger</servlet-name>
-  	<servlet-class>com.jebhomenye.log4j.web.Logger</servlet-class>
-  </servlet>
-  <servlet>
-  	<servlet-name>stream</servlet-name>
-  	<servlet-class>com.jebhomenye.log4j.web.Stream</servlet-class>
-  </servlet>
-  <servlet-mapping>
-   <servlet-name>logger</servlet-name>
-   <url-pattern>/logger.do</url-pattern>
-  </servlet-mapping>
-  
-  <servlet-mapping>
-   <servlet-name>stream</servlet-name>
-   <url-pattern>/stream/*</url-pattern>
-  </servlet-mapping>
-  
-  <listener>
-  	<listener-class>com.jebhomenye.log4j.web.ContextInitializer</listener-class>
-  </listener>
   
   <welcome-file-list>
    <welcome-file>index.html</welcome-file>

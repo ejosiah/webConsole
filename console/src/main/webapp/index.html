@@ -22,28 +22,41 @@
 	</style>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" ></script>
 	<script type="text/javascript">
-		function log(){
+		function log(resp){
 			var url = "http://localhost:8080/console/stream"
-			$.ajax({
-				url : url,
-				dataType : 'json',
-				async : false,
-				success: function(resp){
-					if(resp != ""){
-					
-						var cons = document.getElementById("console")
-						
-						var line = document.createElement("div")
-						var text = document.createTextNode(resp.log)
-						line.appendChild(text)
-						cons.appendChild(line)
-					}
-
-				}
-			})
+			if(resp != ""){
+			
+				var cons = document.getElementById("console")
+				
+				var line = document.createElement("div")
+				var text = document.createTextNode(resp.data)
+				line.appendChild(text)
+				cons.appendChild(line)
+			}
 		}
 		window.onload = function(){
-			setInterval(log, 10);
+			var ws = null
+			var url = "ws://localhost:8080/console/stream"
+			if('WebSocket' in window){
+				ws = new WebSocket(url);
+			}else if('MozWebSocket' in window){
+				ws = new WebSocket(url)
+			}else{
+				if(console){
+					console.log("Websocket is not supported by this browser")
+				}
+			}
+			ws.onopen = function(){
+				if(console){
+					console.log("Connected to server");
+				}
+			}
+			ws.onclose = function(){
+				if(console){
+					console.log("disconnected from server");
+				}
+			}
+			ws.onmessage = log
 		}
 	</script>
 	<body>

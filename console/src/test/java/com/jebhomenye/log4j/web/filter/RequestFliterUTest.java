@@ -51,7 +51,7 @@ public class RequestFliterUTest {
 	public void testDoFilterWithNotime() throws Exception{
 		Map<String, String> params = new HashMap<String, String>();
 		when(mockServletReq.getRequestURI()).thenReturn(REQUEST_URL);
-		when(mockServletReq.getParameterMap()).thenReturn(params);
+	//	when(mockServletReq.getParameterMap()).thenReturn(params);
 		
 		requestFilter.doFilter(mockServletReq, mockServletRes, mockFilterChain);
 		
@@ -67,7 +67,7 @@ public class RequestFliterUTest {
 	public void testDoFilterWithTime() throws Exception{
 		Map<String, String> params = new HashMap<String, String>();
 		when(mockServletReq.getRequestURI()).thenReturn(REQUEST_URL + "/" + TIME);
-		when(mockServletReq.getParameterMap()).thenReturn(params);
+		//when(mockServletReq.getParameterMap()).thenReturn(params);
 		
 		requestFilter.doFilter(mockServletReq, mockServletRes, mockFilterChain);
 		

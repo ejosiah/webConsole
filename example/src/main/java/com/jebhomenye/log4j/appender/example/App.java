@@ -16,7 +16,7 @@ public class App
 	
     public static void main( String[] args ) throws Exception
     {
-        File file = new File("C:\\Users\\jay\\workspace\\sample data\\5000.csv");
+        File file = new File("C:\\Users\\jay\\workspace\\sample data\\500.csv");
         Scanner scanner = new Scanner(file);
         while(scanner.hasNextLine()){
         	Thread.sleep(10);

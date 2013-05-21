@@ -1,13 +1,16 @@
 package com.jebhomenye.log4j.web;
 
 import java.io.*;
+import java.util.List;
+
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import com.jebhomenye.log4j.service.ApplicationRegistry;
+import com.jebhomenye.log4j.service.LogEvent;
+import com.jebhomenye.log4j.service.LogEventListener;
 
-/**
- * Servlet implementation class Logger
- */
+@WebServlet("/logger.do")
 public class Logger extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -18,7 +21,7 @@ public class Logger extends HttpServlet {
 		String event = eventLog(in);
 		long time = System.currentTimeMillis();
 		
-		ApplicationRegistry.get().loggerService().log(time, event);
+		publishLogEvent(time, event);
 
 	}
 	
@@ -29,6 +32,14 @@ public class Logger extends HttpServlet {
 			writer.write(chr);
 		}
 		return writer.toString();
+	}
+	
+	public void publishLogEvent(long time, String message){
+		LogEvent event = new LogEvent(time, message);
+		List<LogEventListener> listeners = ApplicationRegistry.get().logEventListeners();
+		for(LogEventListener listener : listeners){
+			listener.onLogEvent(event);
+		}
 	}
 
 }

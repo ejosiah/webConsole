@@ -1,9 +1,11 @@
 package com.jebhomenye.log4j.service;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.jebhomenye.log4j.store.DataStore;
 
-public class LoggerService {
+@Singleton
+public class LoggerService implements LogEventListener {
 		
 	@Inject
 	private DataStore dataStore;
@@ -20,5 +22,12 @@ public class LoggerService {
 		}
 		return log != null ? log : "";
 	}
+
+	public void onLogEvent(LogEvent event) {
+		log(event.getTime(), event.getMessage());
+		
+	}
+	
+	
 
 }
